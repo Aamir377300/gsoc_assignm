@@ -16,6 +16,7 @@ import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
 import HistoricalData from './pages/HistoricalData'
 import NotFound from './pages/NotFound'
+import RainfallAlertTest from './components/RainfallAlertTest'
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/test-alert" element={<RainfallAlertTest />} />
               <Route 
                 path="/dashboard" 
                 element={
