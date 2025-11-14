@@ -47,7 +47,7 @@ const CitySelector = ({
       } finally {
         setIsSearching(false)
       }
-    }, 500) // Wait 500ms after user stops typing
+    }, 500)
 
     return () => {
       if (searchTimeoutRef.current) {
