@@ -9,10 +9,10 @@ import MetricsGrid from '../components/MetricsGrid'
 import ChartsGrid from '../components/ChartsGrid'
 import { useAutoRefresh } from '../hooks/useAutoRefresh'
 import { useDashboardData } from '../hooks/useDashboardData'
-import { CITIES } from '../utils/constants'
+import { useCity } from '../contexts/CityContext'
 
 function Dashboard() {
-  const [selectedCity, setSelectedCity] = useState(CITIES[0].value)
+  const { selectedCity, setSelectedCity } = useCity()
   const [autoRefreshEnabled, setAutoRefreshEnabled] = useState(false)
   
   const { 
