@@ -1,99 +1,42 @@
 /**
  * Main App Component
- * Orchestrates the entire Smart City Dashboard
+ * Multi-page Smart City Dashboard with React Router
  */
 
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './contexts/ThemeContext'
 import Header from './components/Header'
-import CitySelector from './components/CitySelector'
-import StatusMessage from './components/StatusMessage'
-import MetricsGrid from './components/MetricsGrid'
-import ChartsGrid from './components/ChartsGrid'
+import Navigation from './components/Navigation'
 import Footer from './components/Footer'
-import { useAutoRefresh } from './hooks/useAutoRefresh'
-import { useDashboardData } from './hooks/useDashboardData'
-import { CITIES } from './utils/constants'
+import Dashboard from './pages/Dashboard'
+import HistoricalData from './pages/HistoricalData'
+import About from './pages/About'
+import NotFound from './pages/NotFound'
 
 function App() {
-  // State management
-  const [selectedCity, setSelectedCity] = useState(CITIES[0].value)
-  const [autoRefreshEnabled, setAutoRefreshEnabled] = useState(false)
-  
-  // Custom hooks for data fetching and auto-refresh
-  const { 
-    weatherData, 
-    airQualityData, 
-    forecastData, 
-    loading, 
-    error, 
-    lastUpdated,
-    refreshData 
-  } = useDashboardData(selectedCity)
-  
-  useAutoRefresh(refreshData, autoRefreshEnabled)
-
-  // Handle city change
-  const handleCityChange = (city) => {
-    setSelectedCity(city)
-  }
-
-  // Handle manual refresh
-  const handleRefresh = () => {
-    refreshData()
-  }
-
-  // Handle auto-refresh toggle
-  const handleAutoRefreshToggle = (enabled) => {
-    setAutoRefreshEnabled(enabled)
-  }
-
   return (
     <ThemeProvider>
-      <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 
-                      dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-200">
-        {/* Header */}
-        <Header />
-        
-        {/* City Selector */}
-        <CitySelector
-          selectedCity={selectedCity}
-          onCityChange={handleCityChange}
-          onRefresh={handleRefresh}
-          autoRefreshEnabled={autoRefreshEnabled}
-          onAutoRefreshToggle={handleAutoRefreshToggle}
-          loading={loading}
-        />
-        
-        {/* Main Content */}
-        <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
-          {/* Status Message */}
-          <StatusMessage 
-            error={error} 
-            loading={loading}
-            lastUpdated={lastUpdated}
-          />
+      <Router>
+        <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 
+                        dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-200">
+          {/* Header with Theme Toggle */}
+          <Header />
           
-          {/* Metrics Cards Grid */}
-          <MetricsGrid
-            weatherData={weatherData}
-            airQualityData={airQualityData}
-            lastUpdated={lastUpdated}
-            loading={loading}
-          />
+          {/* Navigation Bar */}
+          <Navigation />
           
-          {/* Charts Grid */}
-          <ChartsGrid
-            weatherData={weatherData}
-            airQualityData={airQualityData}
-            forecastData={forecastData}
-            loading={loading}
-          />
-        </main>
-        
-        {/* Footer */}
-        <Footer />
-      </div>
+          {/* Page Routes */}
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/historical" element={<HistoricalData />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          
+          {/* Footer */}
+          <Footer />
+        </div>
+      </Router>
     </ThemeProvider>
   )
 }
