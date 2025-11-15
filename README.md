@@ -7,11 +7,12 @@ A modern, full-stack web application for monitoring real-time environmental data
 ![MongoDB](https://img.shields.io/badge/Database-MongoDB-brightgreen)
 ![TailwindCSS](https://img.shields.io/badge/Styling-TailwindCSS-38B2AC)
 
-# Live_Demo = https://gsoc-assignm.vercel.app/
+## 🌐 Live Demo
+[https://gsoc-assignm.vercel.app/](https://gsoc-assignm.vercel.app/)
 
 ## 🖼️ Screenshots
-![Screenshot - Dashboard](src/assets/dashboard.png)
-![Screenshot - City View](src/assets/historicalData.png)
+![Screenshot - Dashboard](frontend/src/assets/dashboard.png)
+![Screenshot - City View](frontend/src/assets/historicalData.png)
 
 ## ✨ Features
 
@@ -92,13 +93,40 @@ cd gsoc_assignm_my
 ```
 
 ### 2. Install Dependencies
+
+Install dependencies for both frontend and backend:
+
 ```bash
+# Install backend dependencies
+cd backend
 npm install
+
+# Install frontend dependencies
+cd ../frontend
+npm install
+
+# Return to project root
+cd ..
 ```
 
 ### 3. Environment Configuration
 
-Create a `.env` file in the root directory:
+Create environment files for both frontend and backend:
+
+**Backend `.env` file** (in `backend/` directory):
+
+```env
+# MongoDB Connection String
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/
+
+# JWT Secret (change this in production)
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+
+# Server Port
+PORT=5002
+```
+
+**Frontend `.env` file** (in `frontend/` directory):
 
 ```env
 # OpenWeatherMap API Key
@@ -108,12 +136,6 @@ VITE_OPENWEATHER_API_KEY=your_openweather_api_key
 # AQICN Air Quality API Key
 # Get yours at: https://aqicn.org/data-platform/token/
 VITE_AQICN_API_KEY=your_aqicn_api_key
-
-# MongoDB Connection String
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/
-
-# JWT Secret (change this in production)
-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 
 # Backend API URL
 VITE_API_URL=http://localhost:5002/api
@@ -144,28 +166,17 @@ VITE_AUTO_REFRESH_INTERVAL=60000
 
 ## 🎯 Running the Application
 
-### Option 1: Start Both Servers Together (Recommended)
-```bash
-./start-dev.sh
-```
-
-If you get a permission error:
-```bash
-chmod +x start-dev.sh
-./start-dev.sh
-```
-
-### Option 2: Start Servers Separately
+You need to run both the backend and frontend servers. Open two terminal windows:
 
 **Terminal 1 - Backend Server:**
 ```bash
-npm run server
-# or for development with auto-reload
-npm run server:dev
+cd backend
+npm start
 ```
 
 **Terminal 2 - Frontend Development Server:**
 ```bash
+cd frontend
 npm run dev
 ```
 
@@ -178,55 +189,61 @@ npm run dev
 
 ```
 gsoc_assignm_my/
-├── public/                 # Static assets
-├── server/                 # Backend server
-│   ├── models/            # MongoDB models
-│   │   └── User.js        # User schema
-│   ├── routes/            # API routes
-│   │   └── auth.js        # Authentication endpoints
-│   └── index.js           # Express server setup
-├── src/                   # Frontend source
-│   ├── assets/           # Images and static files
-│   ├── components/       # React components
-│   │   ├── Header.jsx
-│   │   ├── Navigation.jsx
-│   │   ├── Footer.jsx
-│   │   ├── CitySelector.jsx
-│   │   ├── MetricsGrid.jsx
-│   │   ├── ChartsGrid.jsx
-│   │   ├── StatusMessage.jsx
-│   │   ├── ThemeToggle.jsx
-│   │   ├── ProtectedRoute.jsx
-│   │   └── history/
-│   │       └── HistoricalDataPanel.jsx
-│   ├── contexts/         # React Context providers
-│   │   ├── ThemeContext.jsx
-│   │   ├── AuthContext.jsx
-│   │   └── CityContext.jsx
-│   ├── hooks/            # Custom React hooks
-│   │   ├── useDashboardData.js
-│   │   ├── useHistoricalData.js
-│   │   └── useAutoRefresh.js
-│   ├── pages/            # Page components
-│   │   ├── Home.jsx
-│   │   ├── Login.jsx
-│   │   ├── Signup.jsx
-│   │   ├── Dashboard.jsx
-│   │   ├── HistoricalData.jsx
-│   │   └── NotFound.jsx
-│   ├── services/         # API services
-│   │   └── apiService.js
-│   ├── utils/            # Utility functions
-│   │   ├── mockData.js
-│   │   └── historyUtils.js
-│   ├── App.jsx           # Main app component
-│   ├── main.jsx          # Entry point
-│   └── index.css         # Global styles
-├── .env                  # Environment variables
-├── package.json          # Dependencies
-├── vite.config.js        # Vite configuration
-├── tailwind.config.js    # Tailwind configuration
-└── start-dev.sh          # Development startup script
+├── backend/                # Backend server
+│   ├── server/            # Server source code
+│   │   ├── models/        # MongoDB models
+│   │   │   └── User.js    # User schema
+│   │   ├── routes/        # API routes
+│   │   │   └── auth.js    # Authentication endpoints
+│   │   └── index.js       # Express server setup
+│   ├── .env               # Backend environment variables
+│   ├── package.json       # Backend dependencies
+│   └── node_modules/      # Backend dependencies
+├── frontend/              # Frontend application
+│   ├── public/            # Static assets
+│   ├── src/               # Frontend source
+│   │   ├── assets/        # Images and static files
+│   │   ├── components/    # React components
+│   │   │   ├── Header.jsx
+│   │   │   ├── Navigation.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── CitySelector.jsx
+│   │   │   ├── MetricsGrid.jsx
+│   │   │   ├── ChartsGrid.jsx
+│   │   │   ├── StatusMessage.jsx
+│   │   │   ├── ThemeToggle.jsx
+│   │   │   ├── ProtectedRoute.jsx
+│   │   │   └── history/
+│   │   │       └── HistoricalDataPanel.jsx
+│   │   ├── contexts/      # React Context providers
+│   │   │   ├── ThemeContext.jsx
+│   │   │   ├── AuthContext.jsx
+│   │   │   └── CityContext.jsx
+│   │   ├── hooks/         # Custom React hooks
+│   │   │   ├── useDashboardData.js
+│   │   │   ├── useHistoricalData.js
+│   │   │   └── useAutoRefresh.js
+│   │   ├── pages/         # Page components
+│   │   │   ├── Home.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Signup.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── HistoricalData.jsx
+│   │   │   └── NotFound.jsx
+│   │   ├── services/      # API services
+│   │   │   └── apiService.js
+│   │   ├── utils/         # Utility functions
+│   │   │   ├── mockData.js
+│   │   │   └── historyUtils.js
+│   │   ├── App.jsx        # Main app component
+│   │   ├── main.jsx       # Entry point
+│   │   └── index.css      # Global styles
+│   ├── .env               # Frontend environment variables
+│   ├── package.json       # Frontend dependencies
+│   ├── vite.config.js     # Vite configuration
+│   ├── tailwind.config.js # Tailwind configuration
+│   └── node_modules/      # Frontend dependencies
+└── README.md              # Project documentation
 ```
 
 ## 🔌 API Endpoints
@@ -241,17 +258,16 @@ gsoc_assignm_my/
 
 ## 🎨 Available Scripts
 
+**Backend (run from `backend/` directory):**
 ```bash
-# Development
-npm run dev              # Start Vite dev server
-npm run server           # Start backend server
-npm run server:dev       # Start backend with nodemon
+npm start                # Start backend server
+```
 
-# Production
+**Frontend (run from `frontend/` directory):**
+```bash
+npm run dev              # Start Vite dev server
 npm run build            # Build for production
 npm run preview          # Preview production build
-
-# Code Quality
 npm run lint             # Run ESLint
 ```
 
@@ -307,23 +323,29 @@ npm run lint             # Run ESLint
 ```
 Error: ERR_CONNECTION_REFUSED on port 5002
 ```
-**Solution**: Make sure the backend server is running with `npm run server`
+**Solution**: Make sure the backend server is running. Navigate to `backend/` directory and run `npm start`
 
 ### API Key Issues
 ```
 Warning: API key not configured, using mock data
 ```
-**Solution**: Add valid API keys to your `.env` file
+**Solution**: Add valid API keys to your `frontend/.env` file
 
 ### MongoDB Connection Errors
 ```
 Error: MongoDB connection error
 ```
-**Solution**: Check your `MONGODB_URI` in `.env` and ensure your IP is whitelisted in MongoDB Atlas
+**Solution**: Check your `MONGODB_URI` in `backend/.env` and ensure your IP is whitelisted in MongoDB Atlas
 
 ### Build Errors
 ```bash
-# Clear cache and reinstall
+# Clear cache and reinstall backend
+cd backend
+rm -rf node_modules package-lock.json
+npm install
+
+# Clear cache and reinstall frontend
+cd ../frontend
 rm -rf node_modules package-lock.json
 npm install
 ```
