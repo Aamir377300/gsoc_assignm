@@ -1,136 +1,130 @@
 # Smart City Dashboard
 
-A modern, real-time dashboard for monitoring smart city metrics including weather, air quality, and historical data analysis.
-
-## Features
-
-- **Beautiful Home Page** - Engaging landing page with feature showcase
-- **Multi-page Application** - Clean navigation with React Router
-- **Enhanced Search** - Beautiful search interface with auto-suggestions
-- **Real-time Weather Data** - Current temperature, humidity, wind speed, and conditions
-- **Air Quality Monitoring** - Live AQI readings and pollutant levels
-- **Historical Data Analysis** - 24-hour and 7-day trends for temperature, wind, and AQI
-- **Interactive Charts** - Visualize data trends with Chart.js
-- **Dark Mode** - Toggle between light and dark themes
-- **Auto-refresh** - Automatic data updates every 5 minutes
-- **Multi-city Support** - Monitor multiple cities worldwide
-- **Responsive Design** - Works perfectly on mobile, tablet, and desktop
-
-## Tech Stack
-
-- **React 18** - UI framework
-- **React Router** - Client-side routing
-- **Vite** - Build tool and dev server
-- **Tailwind CSS** - Styling
-- **Chart.js** - Data visualization
-- **Axios** - HTTP client
-
-## Free APIs Used
-
-- **OpenWeatherMap API** - Current weather data
-- **Open-Meteo API** - Historical weather data (no API key required)
-- **Open-Meteo Air Quality API** - Air quality and historical AQI data (no API key required)
-- **NewsData.io API** - Latest news articles and updates
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 16+ and npm/yarn
-
-### Installation
-
-1. Clone the repository
-```bash
-git clone <repository-url>
-cd gsoc_assignm_my
-```
-
-2. Install dependencies
-```bash
-npm install
-```
-
-3. Create a `.env` file in the root directory
-```env
-VITE_OPENWEATHER_API_KEY=your_api_key_here
-VITE_NEWSDATA_API_KEY=your_newsdata_api_key_here
-```
-
-**Get your API keys:**
-- OpenWeatherMap: https://openweathermap.org/api
-- NewsData.io: https://newsdata.io/
-
-4. Start the development server
-```bash
-npm run dev
-```
-
-5. Open your browser to `http://localhost:5173`
+A full-stack application for monitoring smart city metrics including weather, air quality, and historical data analysis.
 
 ## Project Structure
 
 ```
-gsoc_assignm_my/
-├── src/
-│   ├── pages/
-│   │   ├── Dashboard.jsx        # Main dashboard page
-│   │   ├── HistoricalData.jsx   # Historical trends page
-│   │   ├── About.jsx            # About page
-│   │   └── NotFound.jsx         # 404 page
-│   ├── components/
-│   │   ├── charts/              # Chart components
-│   │   ├── history/             # Historical data components
-│   │   ├── Navigation.jsx       # Navigation bar
-│   │   ├── Header.jsx
-│   │   ├── Fojsx
-│   │   └── ...
-│   ├── hooks/
-│   │   ├── usejs
-│   │   ├── useHi
-│   │   └── ...
-│   ├── utils/
-│   │   ├── conss.js
-│   │   .js
-│   │   └── ...
-│   ├── conte/
-│  sx
+smart-city-app/
+├── frontend/          # React + Vite frontend
+└── backend/           # Express + MongoDB backend
+```
 
-│   └── main.jsx
-.env
-├── package.json
-└── README.md
-```├── upter set Rou      #     jsx       ├── App.│   meContext.j └── The   │
+## Quick Start
 
-## Available Scripts
+### Backend Setup
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+1. Navigate to backend directory:
+```bash
+cd backend
+```
 
-## Features in Detail
+2. Install dependencies:
+```bash
+npm install
+```
 
-### Historical Data Analysis
+3. Create `.env` file (copy from `.env.example`):
+```bash
+cp .env.example .env
+```
 
-View temperature, wind speed, and AQI trends over:
-- Last 24 hours (hourly data)
-- Last 7 days (daily data)
+4. Update `.env` with your MongoDB URI and JWT secret
 
-Toggle between time ranges with interactive charts powered by Chart.js.
+5. Start the server:
+```bash
+npm run dev
+```
 
-### Dark Mode
+Backend runs on `http://localhost:5002`
 
-Click the theme toggle in the header to switch between light and dark modes. Preference is saved to localStorage.
+### Frontend Setup
 
-### Auto-refresh
+1. Navigate to frontend directory:
+```bash
+cd frontend
+```
 
-Enable auto-refresh to automatically update data every 5 minutes without manual intervention.
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Create `.env` file (copy from `.env.example`):
+```bash
+cp .env.example .env
+```
+
+4. Update `.env` with your API keys
+
+5. Start the development server:
+```bash
+npm run dev
+```
+
+Frontend runs on `http://localhost:5173`
+
+## Deployment
+
+### Option 1: Vercel (Frontend) + Render (Backend)
+
+**Deploy Backend to Render:**
+1. Push backend folder to GitHub
+2. Create new Web Service on [render.com](https://render.com)
+3. Connect your repo, select `backend` folder
+4. Set build command: `npm install`
+5. Set start command: `npm start`
+6. Add environment variables from `.env.example`
+
+**Deploy Frontend to Vercel:**
+1. Push frontend folder to GitHub
+2. Import project on [vercel.com](https://vercel.com)
+3. Set root directory to `frontend`
+4. Add environment variables
+5. Update `VITE_API_URL` to your Render backend URL
+
+### Option 2: Railway (Both)
+
+1. Install Railway CLI: `npm install -g @railway/cli`
+2. Login: `railway login`
+3. Create two services:
+   - Backend: `railway up` from backend folder
+   - Frontend: `railway up` from frontend folder
+
+### Option 3: Separate Repos
+
+Create two separate GitHub repositories:
+- `smart-city-frontend` (deploy to Vercel/Netlify)
+- `smart-city-backend` (deploy to Render/Railway/Heroku)
+
+## Environment Variables
+
+### Frontend (.env)
+- `VITE_OPENWEATHER_API_KEY` - OpenWeatherMap API key
+- `VITE_AQICN_API_KEY` - AQICN API key
+- `VITE_NEWS_API_KEY` - NewsData.io API key
+- `VITE_API_URL` - Backend API URL
+
+### Backend (.env)
+- `MONGODB_URI` - MongoDB connection string
+- `JWT_SECRET` - Secret for JWT tokens
+- `PORT` - Server port (default: 5002)
+
+## Tech Stack
+
+**Frontend:**
+- React 18
+- Vite
+- Tailwind CSS
+- Chart.js
+- React Router
+
+**Backend:**
+- Express
+- MongoDB + Mongoose
+- JWT Authentication
+- bcryptjs
 
 ## License
 
 MIT
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
